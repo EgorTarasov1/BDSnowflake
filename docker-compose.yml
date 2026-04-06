@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:latest
+    container_name: bigdata-lab1-container
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pet_store_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./sql/import.sql:/docker-entrypoint-initdb.d/01_import.sql
+      - ./sql/ddl.sql:/docker-entrypoint-initdb.d/02_ddl.sql
+      - ./sql/dml.sql:/docker-entrypoint-initdb.d/03_dml.sql
+      - ./sql/test.sql:/docker-entrypoint-initdb.d/04_test.sql
+      
+      - "./исходные данные:/data"
